@@ -3,167 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ruta Secreta por Norte de Santander</title>
+<title>Ruta Secreta: Aventura por Norte de Santander</title>
 <style>
 :root{
-  --morado:#7c3aed;--rosa:#ec4899;--naranja:#f59e0b;--verde:#22c55e;
-  --texto:#302a3a;--suave:#746b7f;--borde:#eadcf0;
+ --violet:#6d28d9;--pink:#ec4899;--orange:#f59e0b;--green:#16a34a;
+ --ink:#2f2940;--muted:#746b7f;--paper:#fffdf8;--line:#eadcf0;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0;min-height:100vh;overflow-x:hidden;
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--texto);
-  background:linear-gradient(160deg,#fff7ed 0%,#fdf2f8 50%,#f5f3ff 100%);
+ margin:0;min-height:100vh;overflow-x:hidden;
+ font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+ color:var(--ink);
+ background:linear-gradient(#8ed8ff 0 34%,#dff7ff 34% 48%,#8dd46f 48% 100%);
 }
-.sky{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
-.cloud{position:absolute;font-size:clamp(2rem,7vw,5rem);opacity:.35;animation:cloud 22s linear infinite}
-.c1{top:8%;left:-15%;animation-duration:24s}.c2{top:32%;left:-20%;animation-duration:31s;animation-delay:-12s}.c3{top:70%;left:-18%;animation-duration:27s;animation-delay:-5s}
+.world{position:fixed;inset:0;overflow:hidden;z-index:-5;pointer-events:none}
+.sun{position:absolute;right:7%;top:5%;width:90px;height:90px;border-radius:50%;background:#ffe978;box-shadow:0 0 60px #ffe978;animation:sunPulse 3s ease-in-out infinite alternate}
+@keyframes sunPulse{to{transform:scale(1.08);box-shadow:0 0 90px #fff29a}}
+.mountain{position:absolute;bottom:29%;width:0;height:0;border-left:180px solid transparent;border-right:180px solid transparent;border-bottom:260px solid #5e9c61;filter:drop-shadow(0 12px 8px #0002)}
+.m1{left:-80px}.m2{left:25%;transform:scale(.75)}.m3{right:-100px;transform:scale(1.15)}
+.mountain:after{content:"";position:absolute;left:-65px;top:70px;width:0;height:0;border-left:65px solid transparent;border-right:65px solid transparent;border-bottom:95px solid #eefcff}
+.cloud{position:absolute;font-size:70px;opacity:.8;animation:cloud linear infinite}
+.c1{top:10%;left:-140px;animation-duration:20s}.c2{top:24%;left:-180px;animation-duration:28s;animation-delay:-11s}
 @keyframes cloud{to{transform:translateX(125vw)}}
-.road{position:fixed;bottom:-55px;left:-5%;width:110%;height:120px;background:#d6d3d1;transform:rotate(-2deg);z-index:-1}
-.road:after{content:"";position:absolute;top:52px;left:0;width:100%;border-top:5px dashed #fff}
-.bus{position:fixed;bottom:40px;left:-120px;font-size:64px;animation:bus 16s linear infinite;z-index:-1;filter:drop-shadow(0 8px 8px #0002)}
-@keyframes bus{0%{transform:translateX(0) rotate(-2deg)}50%{transform:translateX(55vw) rotate(2deg)}100%{transform:translateX(120vw) rotate(-2deg)}}
-.wrap{width:min(790px,calc(100% - 28px));margin:auto;padding:25px 0 90px}
-.hero{text-align:center;padding:18px 12px}
-.badge{display:inline-block;background:#fff;padding:9px 15px;border-radius:999px;font-weight:800;box-shadow:0 10px 30px #6d28d922}
-h1{font-size:clamp(2.1rem,8vw,4.5rem);line-height:.97;letter-spacing:-.05em;margin:18px 0 12px;background:linear-gradient(90deg,var(--morado),var(--rosa),var(--naranja));color:transparent;background-clip:text;-webkit-background-clip:text}
-.hero p{color:var(--suave);line-height:1.55;max-width:620px;margin:auto}
-.icons{font-size:2rem;margin-top:18px;letter-spacing:.35rem;animation:bob 2.7s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-8px) rotate(1deg)}}
-.card{background:#ffffffec;border:1px solid #fff;border-radius:30px;padding:clamp(20px,5vw,36px);box-shadow:0 22px 65px #6d28d926;backdrop-filter:blur(11px)}
-.progress-shell{height:11px;background:#f3e8ff;border-radius:50px;overflow:hidden;margin-bottom:28px}
-.progress{height:100%;width:0;background:linear-gradient(90deg,var(--morado),var(--rosa),var(--naranja));transition:.45s}
-.step{display:none}.step.active{display:block;animation:enter .45s cubic-bezier(.2,.8,.2,1)}
-@keyframes enter{from{opacity:0;transform:translateX(35px) scale(.98)}to{opacity:1;transform:none}}
-.kicker{font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;font-weight:900;color:var(--morado)}
-h2{margin:8px 0;font-size:clamp(1.4rem,5vw,2.15rem)}
-.hint{color:var(--suave);line-height:1.5;margin:0 0 20px}
-.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-@media(max-width:580px){.options{grid-template-columns:1fr}.bus{font-size:49px}}
-.option{display:flex;align-items:center;gap:12px;padding:15px 16px;border:2px solid var(--borde);border-radius:18px;background:#fff;cursor:pointer;font-weight:750;transition:.22s}
-.option:hover{transform:translateY(-3px) rotate(-.4deg);border-color:#d946ef;box-shadow:0 10px 25px #d946ef1f}
-.option.selected{border-color:var(--rosa);background:linear-gradient(135deg,#fdf4ff,#fff1f2);transform:scale(1.015)}
-.option.pop{animation:pop .35s}
-@keyframes pop{50%{transform:scale(1.06)}}
-input[type=checkbox],input[type=radio]{width:20px;height:20px;accent-color:var(--rosa)}
-input[type=text],textarea{width:100%;border:2px solid var(--borde);border-radius:18px;padding:15px;font:inherit;outline:none}
-textarea{min-height:115px;resize:vertical}
-input:focus,textarea:focus{border-color:var(--rosa);box-shadow:0 0 0 4px #fce7f3}
+.tree{position:absolute;bottom:10%;font-size:70px;animation:sway 2.5s ease-in-out infinite alternate}
+.t1{left:2%}.t2{right:5%;animation-delay:.8s}.t3{left:18%;font-size:45px}
+@keyframes sway{to{transform:rotate(3deg)}}
+.road-bg{position:absolute;bottom:-10%;left:-20%;width:140%;height:31%;background:#56515f;transform:rotate(-2deg);border-top:12px solid #d6d3d1}
+.road-bg:after{content:"";position:absolute;top:48%;width:100%;border-top:6px dashed #fff}
+.wrap{width:min(900px,calc(100% - 24px));margin:auto;padding:18px 0 75px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#ffffffdd;border:1px solid #fff;padding:10px 14px;border-radius:20px;box-shadow:0 10px 30px #1e3a8a22;backdrop-filter:blur(10px)}
+.logo{font-weight:1000}.sound{background:#ede9fe;color:var(--violet);border:0;border-radius:13px;padding:9px 12px;font-weight:850;cursor:pointer}
+.hero{text-align:center;padding:30px 12px 18px}
+.hero h1{font-size:clamp(2.2rem,7vw,4.8rem);line-height:.95;margin:12px auto;letter-spacing:-.05em;color:#fff;text-shadow:0 5px 0 #7c3aed,0 11px 22px #0003}
+.hero p{display:inline-block;background:#ffffffdf;padding:11px 17px;border-radius:999px;color:#5d5268;font-weight:750}
+.route-card{background:#fffdf4;border:4px solid #fff;border-radius:28px;padding:18px;box-shadow:0 18px 50px #22336635;margin:10px 0 18px}
+.route-title{display:flex;justify-content:space-between;font-weight:900;color:#6d28d9;margin-bottom:14px}
+.route{position:relative;height:75px}
+.route-line{position:absolute;left:6%;right:6%;top:33px;height:9px;background:#ded6ee;border-radius:20px}
+.route-fill{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#f59e0b,#ec4899);border-radius:20px;transition:width .65s cubic-bezier(.2,.8,.2,1)}
+.stops{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:flex-start}
+.stop{width:42px;text-align:center;font-size:12px;font-weight:900;color:#857991}
+.dot{display:grid;place-items:center;margin:auto;width:34px;height:34px;border-radius:50%;background:#ede9fe;border:4px solid #fff;box-shadow:0 3px 12px #0002;font-size:17px;transition:.35s}
+.stop.done .dot{background:#bbf7d0;transform:scale(1.08)}.stop.active .dot{background:#f9a8d4;animation:pulse 1s infinite alternate}
+@keyframes pulse{to{transform:scale(1.18) rotate(6deg)}}
+.bus-marker{position:absolute;top:-3px;left:0;font-size:36px;transition:left .65s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 5px 4px #0003);z-index:3}
+.game{position:relative;background:linear-gradient(145deg,#fffefa,#fff);border:5px solid #fff;border-radius:34px;padding:clamp(20px,5vw,40px);box-shadow:0 24px 70px #27325d44;overflow:hidden}
+.game:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#ede9fe 1.4px,transparent 1.4px);background-size:22px 22px;opacity:.45;pointer-events:none}
+.mission-badge{position:relative;display:inline-flex;align-items:center;gap:8px;background:#6d28d9;color:#fff;padding:8px 13px;border-radius:12px;font-size:.8rem;font-weight:950;text-transform:uppercase;letter-spacing:.07em;box-shadow:0 7px 0 #4c1d95}
+.step{display:none;position:relative}.step.active{display:block;animation:missionIn .55s cubic-bezier(.17,.85,.32,1.25)}
+@keyframes missionIn{from{opacity:0;transform:translateX(70px) rotate(1.5deg) scale(.94)}to{opacity:1;transform:none}}
+h2{font-size:clamp(1.55rem,5vw,2.45rem);margin:22px 0 8px}.hint{color:var(--muted);line-height:1.55;margin:0 0 20px}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+@media(max-width:620px){.options{grid-template-columns:1fr}.stop span{display:none}.route{height:55px}.bus-marker{font-size:30px}}
+.option{position:relative;display:flex;align-items:center;gap:12px;padding:16px;border:3px solid #eee7f4;border-radius:20px;background:#fff;cursor:pointer;font-weight:820;box-shadow:0 7px 0 #e5deeb;transition:.2s}
+.option:hover{transform:translateY(-4px) rotate(-.4deg);border-color:#c084fc}
+.option.selected{border-color:#ec4899;background:#fff1f8;box-shadow:0 7px 0 #f9a8d4;transform:translateY(-3px)}
+.option.selected:after{content:"✓";position:absolute;right:10px;top:9px;width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:#22c55e;color:#fff;font-weight:1000}
+.option.pop{animation:pop .35s}@keyframes pop{50%{transform:scale(1.08) rotate(1deg)}}
+input[type=checkbox],input[type=radio]{width:21px;height:21px;accent-color:#ec4899}
+input[type=text],textarea{width:100%;padding:16px;border:3px solid #e8def0;border-radius:18px;font:inherit;outline:none;background:#fff}
+textarea{min-height:120px;resize:vertical}input:focus,textarea:focus{border-color:#8b5cf6;box-shadow:0 0 0 5px #ede9fe}
 .nav{display:flex;gap:12px;justify-content:space-between;margin-top:26px}
-button{border:0;border-radius:17px;padding:14px 19px;font:inherit;font-weight:900;cursor:pointer;transition:.2s}
-button:hover{transform:translateY(-2px)}
-.primary{margin-left:auto;color:#fff;background:linear-gradient(90deg,var(--morado),var(--rosa));box-shadow:0 11px 25px #db277733}
-.secondary{color:#6d28d9;background:#f3e8ff}
-.error{min-height:23px;color:#be123c;font-weight:800;margin-top:12px}
-.result{display:none;text-align:center}.result.show{display:block;animation:enter .5s}
-.result-icon{font-size:5rem;animation:celebrate 1s ease-in-out infinite alternate}
-@keyframes celebrate{to{transform:rotate(7deg) scale(1.08)}}
-.result-box{text-align:left;white-space:pre-wrap;background:#fff;border:2px dashed #d946ef;border-radius:19px;padding:18px;line-height:1.55;max-height:370px;overflow:auto;margin:20px 0}
-.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+button.action{border:0;border-radius:17px;padding:14px 20px;font:inherit;font-weight:950;cursor:pointer;transition:.2s}
+button.action:hover{transform:translateY(-3px)}.primary{margin-left:auto;background:linear-gradient(90deg,#6d28d9,#ec4899);color:#fff;box-shadow:0 7px 0 #831843}.secondary{background:#ede9fe;color:#6d28d9;box-shadow:0 7px 0 #ddd6fe}
+.error{min-height:24px;color:#be123c;font-weight:900;margin-top:12px}
+.score-pop{position:fixed;left:50%;top:18%;transform:translateX(-50%);font-size:2rem;font-weight:1000;color:#fff;text-shadow:0 4px 0 #7c3aed;animation:score 1s forwards;z-index:20}
+@keyframes score{to{transform:translate(-50%,-80px) scale(1.25);opacity:0}}
+.result{display:none;position:relative;text-align:center}.result.show{display:block;animation:missionIn .6s}
+.trophy{font-size:5rem;animation:trophy 1s ease-in-out infinite alternate}@keyframes trophy{to{transform:rotate(7deg) scale(1.1)}}
+.passport{background:#fff8e7;border:3px dashed #d97706;border-radius:24px;padding:18px;text-align:left;white-space:pre-wrap;line-height:1.55;margin:20px 0;max-height:390px;overflow:auto;box-shadow:inset 0 0 0 7px #fff}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.wa{background:#16a34a;color:#fff}.share{background:#6d28d9;color:#fff}.copy{background:#f59e0b;color:#fff}
 @media(max-width:650px){.actions{grid-template-columns:1fr}}
-.whatsapp{background:#22c55e;color:#fff}.share{background:#7c3aed;color:#fff}.copy{background:#f59e0b;color:#fff}
-.status{font-weight:800;margin-top:14px;color:#15803d}
-.confetti{position:fixed;top:-20px;width:10px;height:18px;z-index:10;animation:fall linear forwards}
-@keyframes fall{to{transform:translateY(110vh) rotate(760deg);opacity:.2}}
-.footer{text-align:center;color:#766d7e;font-size:.88rem;padding:18px}
+.status{font-weight:900;color:#15803d;margin-top:14px}
+.confetti{position:fixed;top:-30px;width:11px;height:20px;z-index:30;animation:fall linear forwards}@keyframes fall{to{transform:translateY(115vh) rotate(900deg);opacity:.2}}
+.footer{text-align:center;background:#ffffffc9;border-radius:16px;margin-top:18px;padding:12px;font-weight:750;color:#685f72}
 </style>
 </head>
 <body>
-<div class="sky"><div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="cloud c3">☁️</div></div>
-<div class="road"></div><div class="bus">🚌</div>
-<main class="wrap">
-<section class="hero">
-  <div class="badge">🧶 ⚽ ⛩️ 🏞️ Aventura viajera</div>
-  <h1>Ruta secreta por Norte de Santander</h1>
-  <p>Descubramos los lugares que ya conoces y las próximas paradas que podrían convertirse en recuerdos especiales.</p>
-  <div class="icons">🗺️ 📷 🎒 💗</div>
-</section>
-<section class="card">
-<div class="progress-shell"><div class="progress" id="progress"></div></div>
-<form id="quiz">
-  <section class="step active">
-    <div class="kicker">Inicio</div><h2>¿Cómo quieres aparecer en esta aventura?</h2>
-    <p class="hint">Escribe tu nombre o un apodo bonito.</p>
-    <input id="name" type="text" maxlength="35" placeholder="Tu nombre o apodo">
-    <div class="error"></div><div class="nav"><button type="button" class="primary next">Comenzar ✨</button></div>
-  </section>
-
-  <section class="step">
-    <div class="kicker">Mapa viajero</div><h2>¿Cuáles de estos pueblos ya conoces?</h2>
-    <p class="hint">Selecciona todos los que ya hayas visitado.</p>
-    <div class="options" id="visited"></div>
-    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
-  </section>
-
-  <section class="step">
-    <div class="kicker">Próxima parada</div><h2>¿Cuáles te gustaría conocer conmigo?</h2>
-    <p class="hint">Aquí aparecerán únicamente los pueblos que no marcaste como conocidos. Puedes escoger hasta tres.</p>
-    <div class="options" id="wish"></div>
-    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
-  </section>
-
-  <section class="step">
-    <div class="kicker">Plan perfecto</div><h2>¿Qué tipo de paseo disfrutas más?</h2>
-    <div class="options" id="plan"></div>
-    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
-  </section>
-
-  <section class="step">
-    <div class="kicker">Tus gustos</div><h2>¿Qué detalle te haría más feliz?</h2>
-    <div class="options" id="detail"></div>
-    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
-  </section>
-
-  <section class="step">
-    <div class="kicker">Ritmo de viaje</div><h2>¿Cómo prefieres viajar?</h2>
-    <div class="options" id="pace"></div>
-    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
-  </section>
-
-  <section class="step">
-    <div class="kicker">Pregunta secreta</div><h2>¿Qué no puede faltar en nuestro paseo?</h2>
-    <p class="hint">Una comida, una canción, un lugar, una actividad o cualquier idea.</p>
-    <textarea id="mustHave" placeholder="Ejemplo: buena música, probar postres y tomar muchas fotos..."></textarea>
-    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Finalizar viaje 🎉</button></div>
-  </section>
-</form>
-
-<div class="result" id="result">
-  <div class="result-icon">🎊🚌</div><h2>¡Ruta descubierta!</h2>
-  <p class="hint">Tus respuestas quedaron preparadas para compartir.</p>
-  <div class="result-box" id="resultText"></div>
-  <div class="actions">
-    <button class="whatsapp" id="wa">Enviar por WhatsApp</button>
-    <button class="share" id="share">Compartir</button>
-    <button class="copy" id="copy">Copiar</button>
-  </div>
-  <div class="status" id="status"></div>
+<div class="world">
+ <div class="sun"></div><div class="cloud c1">☁️</div><div class="cloud c2">☁️</div>
+ <div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div>
+ <div class="tree t1">🌴</div><div class="tree t2">🌳</div><div class="tree t3">🌲</div><div class="road-bg"></div>
 </div>
-</section>
-<div class="footer">Una pequeña aventura para conocernos mejor 💗</div>
+
+<main class="wrap">
+ <div class="topbar"><div class="logo">🗺️ RUTA SECRETA</div><button class="sound" id="soundBtn">🔊 Sonido: ON</button></div>
+ <section class="hero"><h1>Aventura por Norte de Santander</h1><p>Completa 7 misiones y descubre la próxima ruta ✨</p></section>
+
+ <section class="route-card">
+  <div class="route-title"><span>Tu recorrido</span><span id="scoreText">0 / 7 misiones</span></div>
+  <div class="route">
+   <div class="route-line"><div class="route-fill" id="routeFill"></div></div>
+   <div class="bus-marker" id="busMarker">🚌</div>
+   <div class="stops" id="stops"></div>
+  </div>
+ </section>
+
+ <section class="game">
+  <form id="quiz">
+   <section class="step active"><span class="mission-badge">🎒 Misión 1</span><h2>Elige tu nombre de viajera</h2><p class="hint">Escribe tu nombre o un apodo para iniciar la aventura.</p><input id="name" type="text" maxlength="35" placeholder="Tu nombre o apodo"><div class="error"></div><div class="nav"><button type="button" class="action primary next">Iniciar ruta 🚩</button></div></section>
+   <section class="step"><span class="mission-badge">📍 Misión 2</span><h2>Marca los pueblos que ya conquistaste</h2><p class="hint">Selecciona todos los pueblos que ya hayas visitado.</p><div class="options" id="visited"></div><div class="error"></div><div class="nav"><button type="button" class="action secondary prev">⬅ Atrás</button><button type="button" class="action primary next">Sellar pasaporte</button></div></section>
+   <section class="step"><span class="mission-badge">🧭 Misión 3</span><h2>Escoge tus próximas paradas</h2><p class="hint">Solo aparecen los pueblos que todavía no conoces. Puedes escoger hasta tres.</p><div class="options" id="wish"></div><div class="error"></div><div class="nav"><button type="button" class="action secondary prev">⬅ Atrás</button><button type="button" class="action primary next">Elegir aventura</button></div></section>
+   <section class="step"><span class="mission-badge">📷 Misión 4</span><h2>Arma tu plan perfecto</h2><div class="options" id="plan"></div><div class="error"></div><div class="nav"><button type="button" class="action secondary prev">⬅ Atrás</button><button type="button" class="action primary next">Continuar</button></div></section>
+   <section class="step"><span class="mission-badge">💖 Misión 5</span><h2>Elige tu detalle especial</h2><div class="options" id="detail"></div><div class="error"></div><div class="nav"><button type="button" class="action secondary prev">⬅ Atrás</button><button type="button" class="action primary next">Continuar</button></div></section>
+   <section class="step"><span class="mission-badge">🚗 Misión 6</span><h2>Define tu ritmo viajero</h2><div class="options" id="pace"></div><div class="error"></div><div class="nav"><button type="button" class="action secondary prev">⬅ Atrás</button><button type="button" class="action primary next">Última misión</button></div></section>
+   <section class="step"><span class="mission-badge">🔐 Misión final</span><h2>Desbloquea el secreto del paseo</h2><p class="hint">¿Qué comida, canción, actividad o detalle no puede faltar?</p><textarea id="mustHave" placeholder="Ejemplo: buena música, probar postres y tomar muchas fotos..."></textarea><div class="error"></div><div class="nav"><button type="button" class="action secondary prev">⬅ Atrás</button><button type="button" class="action primary next">Completar aventura 🏆</button></div></section>
+  </form>
+
+  <div class="result" id="result">
+   <div class="trophy">🏆🚌✨</div><h2>¡Pasaporte viajero completado!</h2><p class="hint">La ruta quedó desbloqueada y las respuestas están listas.</p>
+   <div class="passport" id="resultText"></div>
+   <div class="actions"><button class="action wa" id="wa">WhatsApp</button><button class="action share" id="share">Compartir</button><button class="action copy" id="copy">Copiar</button></div>
+   <div class="status" id="status"></div>
+  </div>
+ </section>
+ <div class="footer">Creado para descubrir nuevas rutas y guardar recuerdos bonitos 💗</div>
 </main>
 
 <script>
-/* Reemplaza esta URL después de publicar el Apps Script */
-const API_URL = "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT";
-
+const API_URL="PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT";
 const towns=["Pamplona","Chinácota","Chitagá","Cácota","Pamplonita","Bochalema","Salazar de Las Palmas","Gramalote"];
 const choices={
  plan:["☕ Café, comida típica y fotos","🌿 Naturaleza, caminata y miradores","🏘️ Recorrer el pueblo sin afán","🎁 Un plan sorpresa preparado por ti"],
  detail:["🧶 Encontrar algo relacionado con crochet","⛩️ Tomar fotos con un toque anime","⚽ Algo relacionado con fútbol","💖 Una sorpresa sencilla y bonita"],
  pace:["🗓️ Con itinerario y horarios claros","🧭 Con una idea general y libertad para improvisar","🌤️ Sin afán, disfrutando cada parada","🚗 Con muchas actividades en un solo día"]
 };
-const steps=[...document.querySelectorAll(".step")];
-let current=0, finalMessage="", payload={};
+const steps=[...document.querySelectorAll(".step")],stops=document.getElementById("stops");
+let current=0,finalMessage="",payload={},soundOn=true;
+["Inicio","Mapa","Destino","Plan","Detalle","Ritmo","Final"].forEach((x,i)=>stops.insertAdjacentHTML("beforeend",`<div class="stop ${i===0?"active":""}"><div class="dot">${["🚩","📍","🧭","📷","💖","🚗","🏆"][i]}</div><span>${x}</span></div>`));
+
+function beep(freq=620,duration=.08){
+ if(!soundOn)return;
+ try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=freq;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.05,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+duration);o.start();o.stop(a.currentTime+duration)}catch(e){}
+}
+document.getElementById("soundBtn").onclick=()=>{soundOn=!soundOn;document.getElementById("soundBtn").textContent=soundOn?"🔊 Sonido: ON":"🔇 Sonido: OFF";beep(760,.1)};
 
 function createOptions(container,name,items,type="checkbox"){
  container.innerHTML="";
- items.forEach(item=>{
-   const label=document.createElement("label"); label.className="option";
-   label.innerHTML=`<input type="${type}" name="${name}" value="${item.replace(/^[^ ]+ /,"")}"> <span>${item}</span>`;
-   container.appendChild(label);
- });
+ items.forEach(item=>{const clean=item.replace(/^[^ ]+ /,"");const l=document.createElement("label");l.className="option";l.innerHTML=`<input type="${type}" name="${name}" value="${clean}"><span>${item}</span>`;container.appendChild(l)});
 }
 createOptions(document.getElementById("visited"),"visited",[...towns,"🚩 Ninguno todavía"]);
 createOptions(document.getElementById("plan"),"plan",choices.plan,"radio");
@@ -171,109 +149,77 @@ createOptions(document.getElementById("detail"),"detail",choices.detail,"radio")
 createOptions(document.getElementById("pace"),"pace",choices.pace,"radio");
 
 document.addEventListener("change",e=>{
- if(!e.target.matches("input")) return;
- const label=e.target.closest(".option"); label.classList.add("pop"); setTimeout(()=>label.classList.remove("pop"),350);
+ if(!e.target.matches("input"))return;beep(760,.07);
+ const l=e.target.closest(".option");l.classList.add("pop");setTimeout(()=>l.classList.remove("pop"),350);
  if(e.target.name==="visited"){
-   const none=[...document.querySelectorAll('[name=visited]')].find(i=>i.value==="Ninguno todavía");
-   if(e.target.value==="Ninguno todavía"&&e.target.checked) document.querySelectorAll('[name=visited]').forEach(i=>{if(i!==e.target)i.checked=false});
-   else if(e.target.checked&&none) none.checked=false;
+  const none=[...document.querySelectorAll('[name=visited]')].find(i=>i.value==="Ninguno todavía");
+  if(e.target.value==="Ninguno todavía"&&e.target.checked)document.querySelectorAll('[name=visited]').forEach(i=>{if(i!==e.target)i.checked=false});
+  else if(e.target.checked&&none)none.checked=false;
  }
  if(e.target.name==="wish"&&checked("wish").length>3){e.target.checked=false;alert("Puedes escoger máximo tres pueblos.");}
- document.querySelectorAll(".option").forEach(l=>l.classList.toggle("selected",l.querySelector("input").checked));
+ document.querySelectorAll(".option").forEach(x=>x.classList.toggle("selected",x.querySelector("input").checked));
 });
-
-function checked(name){return [...document.querySelectorAll(`[name="${name}"]:checked`)].map(i=>i.value)}
-function one(name){const e=document.querySelector(`[name="${name}"]:checked`);return e?e.value:""}
-
+function checked(n){return [...document.querySelectorAll(`[name="${n}"]:checked`)].map(i=>i.value)}
+function one(n){const e=document.querySelector(`[name="${n}"]:checked`);return e?e.value:""}
 function buildWish(){
- const visited=checked("visited");
- const available=visited.includes("Ninguno todavía")?[...towns]:towns.filter(t=>!visited.includes(t));
- const box=document.getElementById("wish");
- if(!available.length){
-   box.innerHTML='<p class="hint"><strong>¡Ya conoces todos!</strong> En ese caso podrás elegir cuál te gustaría repetir.</p>';
-   createOptions(box,"wish",towns);
- }else createOptions(box,"wish",available);
+ const v=checked("visited"),available=v.includes("Ninguno todavía")?[...towns]:towns.filter(t=>!v.includes(t));
+ createOptions(document.getElementById("wish"),"wish",available.length?available:towns);
 }
-
-function show(i){
- steps.forEach((s,n)=>s.classList.toggle("active",n===i));
- document.getElementById("progress").style.width=(i/(steps.length))*100+"%";
- window.scrollTo({top:0,behavior:"smooth"});
+function updateRoute(){
+ const pct=current/(steps.length-1)*100;
+ document.getElementById("routeFill").style.width=pct+"%";
+ document.getElementById("busMarker").style.left=`calc(${pct}% - ${pct*.32}px)`;
+ document.getElementById("scoreText").textContent=`${current} / 7 misiones`;
+ [...stops.children].forEach((s,i)=>{s.classList.toggle("done",i<current);s.classList.toggle("active",i===current)});
 }
+function show(i){steps.forEach((s,n)=>s.classList.toggle("active",n===i));updateRoute();window.scrollTo({top:0,behavior:"smooth"})}
 function valid(i){
- const err=steps[i].querySelector(".error");err.textContent="";
- const fail=m=>{err.textContent=m;return false};
- if(i===0&&!document.getElementById("name").value.trim())return fail("Escribe tu nombre o apodo.");
- if(i===1&&!checked("visited").length)return fail("Selecciona al menos una opción.");
- if(i===2&&!checked("wish").length)return fail("Escoge al menos un pueblo.");
- if(i===3&&!one("plan"))return fail("Selecciona tu tipo de paseo.");
- if(i===4&&!one("detail"))return fail("Selecciona un detalle.");
- if(i===5&&!one("pace"))return fail("Selecciona tu ritmo de viaje.");
- if(i===6&&!document.getElementById("mustHave").value.trim())return fail("Escribe una pequeña idea.");
+ const e=steps[i].querySelector(".error");e.textContent="";const f=m=>(e.textContent=m,false);
+ if(i===0&&!document.getElementById("name").value.trim())return f("Escribe tu nombre o apodo.");
+ if(i===1&&!checked("visited").length)return f("Selecciona al menos una opción.");
+ if(i===2&&!checked("wish").length)return f("Escoge al menos un pueblo.");
+ if(i===3&&!one("plan"))return f("Selecciona tu tipo de paseo.");
+ if(i===4&&!one("detail"))return f("Selecciona un detalle.");
+ if(i===5&&!one("pace"))return f("Selecciona tu ritmo.");
+ if(i===6&&!document.getElementById("mustHave").value.trim())return f("Escribe una pequeña idea.");
  return true;
 }
-document.querySelectorAll(".next").forEach(b=>b.onclick=()=>{
- if(!valid(current))return;
- if(current===1)buildWish();
- if(current<steps.length-1){current++;show(current)}else finish();
-});
+function reward(){beep(900,.11);const x=document.createElement("div");x.className="score-pop";x.textContent="+1 MISIÓN";document.body.appendChild(x);setTimeout(()=>x.remove(),1000)}
+document.querySelectorAll(".next").forEach(b=>b.onclick=()=>{if(!valid(current))return;if(current===1)buildWish();reward();if(current<steps.length-1){current++;show(current)}else finish()});
 document.querySelectorAll(".prev").forEach(b=>b.onclick=()=>{if(current){current--;show(current)}});
-
-function confetti(){
- const chars=["#f59e0b","#ec4899","#7c3aed","#22c55e","#38bdf8"];
- for(let i=0;i<65;i++){
-  const c=document.createElement("i");c.className="confetti";
-  c.style.left=Math.random()*100+"vw";c.style.background=chars[i%chars.length];
-  c.style.animationDuration=(2.2+Math.random()*2.7)+"s";c.style.animationDelay=Math.random()+".s";
-  document.body.appendChild(c);setTimeout(()=>c.remove(),5200);
- }
-}
+function confetti(){const cs=["#f59e0b","#ec4899","#7c3aed","#22c55e","#38bdf8"];for(let i=0;i<90;i++){const c=document.createElement("i");c.className="confetti";c.style.left=Math.random()*100+"vw";c.style.background=cs[i%cs.length];c.style.animationDuration=(2+Math.random()*3)+"s";c.style.animationDelay=Math.random()+".s";document.body.appendChild(c);setTimeout(()=>c.remove(),5500)}}
 async function save(){
- const status=document.getElementById("status");
- if(!API_URL.startsWith("https://")){status.textContent="Modo demostración: falta conectar la hoja de respuestas.";return}
- status.textContent="Guardando respuestas...";
- try{
-  await fetch(API_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)});
-  status.textContent="✅ Respuestas enviadas correctamente.";
- }catch(e){status.textContent="No se pudo guardar automáticamente. Puedes enviarlas por WhatsApp."}
+ const s=document.getElementById("status");
+ if(!API_URL.startsWith("https://")){s.textContent="Modo demostración: falta conectar Google Sheets.";return}
+ s.textContent="Guardando respuestas...";
+ try{await fetch(API_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)});s.textContent="✅ Respuestas guardadas correctamente."}catch(e){s.textContent="No se pudo guardar automáticamente. Puedes enviarlas por WhatsApp."}
 }
 function finish(){
- payload={
-  fecha:new Date().toISOString(),
-  nombre:document.getElementById("name").value.trim(),
-  conocidos:checked("visited").join(", "),
-  por_conocer:checked("wish").join(", "),
-  plan:one("plan"),detalle:one("detail"),ritmo:one("pace"),
-  imprescindible:document.getElementById("mustHave").value.trim()
- };
- finalMessage=`🗺️✨ MI RUTA SECRETA ✨🗺️
+ payload={fecha:new Date().toISOString(),nombre:document.getElementById("name").value.trim(),conocidos:checked("visited").join(", "),por_conocer:checked("wish").join(", "),plan:one("plan"),detalle:one("detail"),ritmo:one("pace"),imprescindible:document.getElementById("mustHave").value.trim()};
+ finalMessage=`🗺️✨ PASAPORTE DE RUTA SECRETA ✨🗺️
 
-👤 ${payload.nombre}
+👤 Viajera: ${payload.nombre}
 
-✅ Pueblos que ya conozco:
+✅ Lugares conquistados:
 • ${payload.conocidos}
 
-💖 Pueblos que me gustaría conocer contigo:
+💖 Próximas paradas:
 • ${payload.por_conocer}
 
-🎒 Mi paseo favorito:
+📷 Plan ideal:
 • ${payload.plan}
 
-🌟 Detalle que me haría feliz:
+🌟 Detalle especial:
 • ${payload.detalle}
 
-🧭 Mi ritmo ideal:
+🚗 Ritmo viajero:
 • ${payload.ritmo}
 
 🔐 No puede faltar:
 • ${payload.imprescindible}
 
-Ahora te toca preparar la aventura 😉`;
- document.getElementById("resultText").textContent=finalMessage;
- document.getElementById("quiz").style.display="none";
- document.getElementById("progress").style.width="100%";
- document.getElementById("result").classList.add("show");
- confetti();save();window.scrollTo({top:0,behavior:"smooth"});
+¡A preparar la aventura! 😉`;
+ document.getElementById("resultText").textContent=finalMessage;document.getElementById("quiz").style.display="none";document.getElementById("result").classList.add("show");current=7;document.getElementById("routeFill").style.width="100%";document.getElementById("busMarker").style.left="calc(100% - 34px)";document.getElementById("scoreText").textContent="7 / 7 misiones";[...stops.children].forEach(s=>{s.classList.add("done");s.classList.remove("active")});confetti();beep(1100,.25);save();window.scrollTo({top:0,behavior:"smooth"});
 }
 document.getElementById("wa").onclick=()=>window.open("https://wa.me/?text="+encodeURIComponent(finalMessage),"_blank");
 document.getElementById("copy").onclick=async()=>{await navigator.clipboard.writeText(finalMessage);document.getElementById("copy").textContent="¡Copiado! ✅"};

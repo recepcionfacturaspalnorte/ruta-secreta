@@ -55,3 +55,6 @@ Para entrar al panel usa la contraseña guardada como `ADMIN_KEY`.
 ## Nota de privacidad
 
 El juego guarda únicamente las respuestas que la persona escribe o selecciona. No solicita ubicación, cámara, correo ni número de teléfono.
+
+
+VERSIÓN 3: incluye mapa de progreso, bus animado, misiones, sonidos opcionales, recompensas y confeti.
