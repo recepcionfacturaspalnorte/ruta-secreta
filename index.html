@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ruta Secreta por Norte de Santander</title>
+<style>
+:root{
+  --morado:#7c3aed;--rosa:#ec4899;--naranja:#f59e0b;--verde:#22c55e;
+  --texto:#302a3a;--suave:#746b7f;--borde:#eadcf0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;overflow-x:hidden;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--texto);
+  background:linear-gradient(160deg,#fff7ed 0%,#fdf2f8 50%,#f5f3ff 100%);
+}
+.sky{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.cloud{position:absolute;font-size:clamp(2rem,7vw,5rem);opacity:.35;animation:cloud 22s linear infinite}
+.c1{top:8%;left:-15%;animation-duration:24s}.c2{top:32%;left:-20%;animation-duration:31s;animation-delay:-12s}.c3{top:70%;left:-18%;animation-duration:27s;animation-delay:-5s}
+@keyframes cloud{to{transform:translateX(125vw)}}
+.road{position:fixed;bottom:-55px;left:-5%;width:110%;height:120px;background:#d6d3d1;transform:rotate(-2deg);z-index:-1}
+.road:after{content:"";position:absolute;top:52px;left:0;width:100%;border-top:5px dashed #fff}
+.bus{position:fixed;bottom:40px;left:-120px;font-size:64px;animation:bus 16s linear infinite;z-index:-1;filter:drop-shadow(0 8px 8px #0002)}
+@keyframes bus{0%{transform:translateX(0) rotate(-2deg)}50%{transform:translateX(55vw) rotate(2deg)}100%{transform:translateX(120vw) rotate(-2deg)}}
+.wrap{width:min(790px,calc(100% - 28px));margin:auto;padding:25px 0 90px}
+.hero{text-align:center;padding:18px 12px}
+.badge{display:inline-block;background:#fff;padding:9px 15px;border-radius:999px;font-weight:800;box-shadow:0 10px 30px #6d28d922}
+h1{font-size:clamp(2.1rem,8vw,4.5rem);line-height:.97;letter-spacing:-.05em;margin:18px 0 12px;background:linear-gradient(90deg,var(--morado),var(--rosa),var(--naranja));color:transparent;background-clip:text;-webkit-background-clip:text}
+.hero p{color:var(--suave);line-height:1.55;max-width:620px;margin:auto}
+.icons{font-size:2rem;margin-top:18px;letter-spacing:.35rem;animation:bob 2.7s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(1deg)}}
+.card{background:#ffffffec;border:1px solid #fff;border-radius:30px;padding:clamp(20px,5vw,36px);box-shadow:0 22px 65px #6d28d926;backdrop-filter:blur(11px)}
+.progress-shell{height:11px;background:#f3e8ff;border-radius:50px;overflow:hidden;margin-bottom:28px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,var(--morado),var(--rosa),var(--naranja));transition:.45s}
+.step{display:none}.step.active{display:block;animation:enter .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes enter{from{opacity:0;transform:translateX(35px) scale(.98)}to{opacity:1;transform:none}}
+.kicker{font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;font-weight:900;color:var(--morado)}
+h2{margin:8px 0;font-size:clamp(1.4rem,5vw,2.15rem)}
+.hint{color:var(--suave);line-height:1.5;margin:0 0 20px}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:580px){.options{grid-template-columns:1fr}.bus{font-size:49px}}
+.option{display:flex;align-items:center;gap:12px;padding:15px 16px;border:2px solid var(--borde);border-radius:18px;background:#fff;cursor:pointer;font-weight:750;transition:.22s}
+.option:hover{transform:translateY(-3px) rotate(-.4deg);border-color:#d946ef;box-shadow:0 10px 25px #d946ef1f}
+.option.selected{border-color:var(--rosa);background:linear-gradient(135deg,#fdf4ff,#fff1f2);transform:scale(1.015)}
+.option.pop{animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.06)}}
+input[type=checkbox],input[type=radio]{width:20px;height:20px;accent-color:var(--rosa)}
+input[type=text],textarea{width:100%;border:2px solid var(--borde);border-radius:18px;padding:15px;font:inherit;outline:none}
+textarea{min-height:115px;resize:vertical}
+input:focus,textarea:focus{border-color:var(--rosa);box-shadow:0 0 0 4px #fce7f3}
+.nav{display:flex;gap:12px;justify-content:space-between;margin-top:26px}
+button{border:0;border-radius:17px;padding:14px 19px;font:inherit;font-weight:900;cursor:pointer;transition:.2s}
+button:hover{transform:translateY(-2px)}
+.primary{margin-left:auto;color:#fff;background:linear-gradient(90deg,var(--morado),var(--rosa));box-shadow:0 11px 25px #db277733}
+.secondary{color:#6d28d9;background:#f3e8ff}
+.error{min-height:23px;color:#be123c;font-weight:800;margin-top:12px}
+.result{display:none;text-align:center}.result.show{display:block;animation:enter .5s}
+.result-icon{font-size:5rem;animation:celebrate 1s ease-in-out infinite alternate}
+@keyframes celebrate{to{transform:rotate(7deg) scale(1.08)}}
+.result-box{text-align:left;white-space:pre-wrap;background:#fff;border:2px dashed #d946ef;border-radius:19px;padding:18px;line-height:1.55;max-height:370px;overflow:auto;margin:20px 0}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:650px){.actions{grid-template-columns:1fr}}
+.whatsapp{background:#22c55e;color:#fff}.share{background:#7c3aed;color:#fff}.copy{background:#f59e0b;color:#fff}
+.status{font-weight:800;margin-top:14px;color:#15803d}
+.confetti{position:fixed;top:-20px;width:10px;height:18px;z-index:10;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(760deg);opacity:.2}}
+.footer{text-align:center;color:#766d7e;font-size:.88rem;padding:18px}
+</style>
+</head>
+<body>
+<div class="sky"><div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="cloud c3">☁️</div></div>
+<div class="road"></div><div class="bus">🚌</div>
+<main class="wrap">
+<section class="hero">
+  <div class="badge">🧶 ⚽ ⛩️ 🏞️ Aventura viajera</div>
+  <h1>Ruta secreta por Norte de Santander</h1>
+  <p>Descubramos los lugares que ya conoces y las próximas paradas que podrían convertirse en recuerdos especiales.</p>
+  <div class="icons">🗺️ 📷 🎒 💗</div>
+</section>
+<section class="card">
+<div class="progress-shell"><div class="progress" id="progress"></div></div>
+<form id="quiz">
+  <section class="step active">
+    <div class="kicker">Inicio</div><h2>¿Cómo quieres aparecer en esta aventura?</h2>
+    <p class="hint">Escribe tu nombre o un apodo bonito.</p>
+    <input id="name" type="text" maxlength="35" placeholder="Tu nombre o apodo">
+    <div class="error"></div><div class="nav"><button type="button" class="primary next">Comenzar ✨</button></div>
+  </section>
+
+  <section class="step">
+    <div class="kicker">Mapa viajero</div><h2>¿Cuáles de estos pueblos ya conoces?</h2>
+    <p class="hint">Selecciona todos los que ya hayas visitado.</p>
+    <div class="options" id="visited"></div>
+    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
+  </section>
+
+  <section class="step">
+    <div class="kicker">Próxima parada</div><h2>¿Cuáles te gustaría conocer conmigo?</h2>
+    <p class="hint">Aquí aparecerán únicamente los pueblos que no marcaste como conocidos. Puedes escoger hasta tres.</p>
+    <div class="options" id="wish"></div>
+    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
+  </section>
+
+  <section class="step">
+    <div class="kicker">Plan perfecto</div><h2>¿Qué tipo de paseo disfrutas más?</h2>
+    <div class="options" id="plan"></div>
+    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
+  </section>
+
+  <section class="step">
+    <div class="kicker">Tus gustos</div><h2>¿Qué detalle te haría más feliz?</h2>
+    <div class="options" id="detail"></div>
+    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
+  </section>
+
+  <section class="step">
+    <div class="kicker">Ritmo de viaje</div><h2>¿Cómo prefieres viajar?</h2>
+    <div class="options" id="pace"></div>
+    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Continuar</button></div>
+  </section>
+
+  <section class="step">
+    <div class="kicker">Pregunta secreta</div><h2>¿Qué no puede faltar en nuestro paseo?</h2>
+    <p class="hint">Una comida, una canción, un lugar, una actividad o cualquier idea.</p>
+    <textarea id="mustHave" placeholder="Ejemplo: buena música, probar postres y tomar muchas fotos..."></textarea>
+    <div class="error"></div><div class="nav"><button type="button" class="secondary prev">Atrás</button><button type="button" class="primary next">Finalizar viaje 🎉</button></div>
+  </section>
+</form>
+
+<div class="result" id="result">
+  <div class="result-icon">🎊🚌</div><h2>¡Ruta descubierta!</h2>
+  <p class="hint">Tus respuestas quedaron preparadas para compartir.</p>
+  <div class="result-box" id="resultText"></div>
+  <div class="actions">
+    <button class="whatsapp" id="wa">Enviar por WhatsApp</button>
+    <button class="share" id="share">Compartir</button>
+    <button class="copy" id="copy">Copiar</button>
+  </div>
+  <div class="status" id="status"></div>
+</div>
+</section>
+<div class="footer">Una pequeña aventura para conocernos mejor 💗</div>
+</main>
+
+<script>
+/* Reemplaza esta URL después de publicar el Apps Script */
+const API_URL = "PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT";
+
+const towns=["Pamplona","Chinácota","Chitagá","Cácota","Pamplonita","Bochalema","Salazar de Las Palmas","Gramalote"];
+const choices={
+ plan:["☕ Café, comida típica y fotos","🌿 Naturaleza, caminata y miradores","🏘️ Recorrer el pueblo sin afán","🎁 Un plan sorpresa preparado por ti"],
+ detail:["🧶 Encontrar algo relacionado con crochet","⛩️ Tomar fotos con un toque anime","⚽ Algo relacionado con fútbol","💖 Una sorpresa sencilla y bonita"],
+ pace:["🗓️ Con itinerario y horarios claros","🧭 Con una idea general y libertad para improvisar","🌤️ Sin afán, disfrutando cada parada","🚗 Con muchas actividades en un solo día"]
+};
+const steps=[...document.querySelectorAll(".step")];
+let current=0, finalMessage="", payload={};
+
+function createOptions(container,name,items,type="checkbox"){
+ container.innerHTML="";
+ items.forEach(item=>{
+   const label=document.createElement("label"); label.className="option";
+   label.innerHTML=`<input type="${type}" name="${name}" value="${item.replace(/^[^ ]+ /,"")}"> <span>${item}</span>`;
+   container.appendChild(label);
+ });
+}
+createOptions(document.getElementById("visited"),"visited",[...towns,"🚩 Ninguno todavía"]);
+createOptions(document.getElementById("plan"),"plan",choices.plan,"radio");
+createOptions(document.getElementById("detail"),"detail",choices.detail,"radio");
+createOptions(document.getElementById("pace"),"pace",choices.pace,"radio");
+
+document.addEventListener("change",e=>{
+ if(!e.target.matches("input")) return;
+ const label=e.target.closest(".option"); label.classList.add("pop"); setTimeout(()=>label.classList.remove("pop"),350);
+ if(e.target.name==="visited"){
+   const none=[...document.querySelectorAll('[name=visited]')].find(i=>i.value==="Ninguno todavía");
+   if(e.target.value==="Ninguno todavía"&&e.target.checked) document.querySelectorAll('[name=visited]').forEach(i=>{if(i!==e.target)i.checked=false});
+   else if(e.target.checked&&none) none.checked=false;
+ }
+ if(e.target.name==="wish"&&checked("wish").length>3){e.target.checked=false;alert("Puedes escoger máximo tres pueblos.");}
+ document.querySelectorAll(".option").forEach(l=>l.classList.toggle("selected",l.querySelector("input").checked));
+});
+
+function checked(name){return [...document.querySelectorAll(`[name="${name}"]:checked`)].map(i=>i.value)}
+function one(name){const e=document.querySelector(`[name="${name}"]:checked`);return e?e.value:""}
+
+function buildWish(){
+ const visited=checked("visited");
+ const available=visited.includes("Ninguno todavía")?[...towns]:towns.filter(t=>!visited.includes(t));
+ const box=document.getElementById("wish");
+ if(!available.length){
+   box.innerHTML='<p class="hint"><strong>¡Ya conoces todos!</strong> En ese caso podrás elegir cuál te gustaría repetir.</p>';
+   createOptions(box,"wish",towns);
+ }else createOptions(box,"wish",available);
+}
+
+function show(i){
+ steps.forEach((s,n)=>s.classList.toggle("active",n===i));
+ document.getElementById("progress").style.width=(i/(steps.length))*100+"%";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function valid(i){
+ const err=steps[i].querySelector(".error");err.textContent="";
+ const fail=m=>{err.textContent=m;return false};
+ if(i===0&&!document.getElementById("name").value.trim())return fail("Escribe tu nombre o apodo.");
+ if(i===1&&!checked("visited").length)return fail("Selecciona al menos una opción.");
+ if(i===2&&!checked("wish").length)return fail("Escoge al menos un pueblo.");
+ if(i===3&&!one("plan"))return fail("Selecciona tu tipo de paseo.");
+ if(i===4&&!one("detail"))return fail("Selecciona un detalle.");
+ if(i===5&&!one("pace"))return fail("Selecciona tu ritmo de viaje.");
+ if(i===6&&!document.getElementById("mustHave").value.trim())return fail("Escribe una pequeña idea.");
+ return true;
+}
+document.querySelectorAll(".next").forEach(b=>b.onclick=()=>{
+ if(!valid(current))return;
+ if(current===1)buildWish();
+ if(current<steps.length-1){current++;show(current)}else finish();
+});
+document.querySelectorAll(".prev").forEach(b=>b.onclick=()=>{if(current){current--;show(current)}});
+
+function confetti(){
+ const chars=["#f59e0b","#ec4899","#7c3aed","#22c55e","#38bdf8"];
+ for(let i=0;i<65;i++){
+  const c=document.createElement("i");c.className="confetti";
+  c.style.left=Math.random()*100+"vw";c.style.background=chars[i%chars.length];
+  c.style.animationDuration=(2.2+Math.random()*2.7)+"s";c.style.animationDelay=Math.random()+".s";
+  document.body.appendChild(c);setTimeout(()=>c.remove(),5200);
+ }
+}
+async function save(){
+ const status=document.getElementById("status");
+ if(!API_URL.startsWith("https://")){status.textContent="Modo demostración: falta conectar la hoja de respuestas.";return}
+ status.textContent="Guardando respuestas...";
+ try{
+  await fetch(API_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)});
+  status.textContent="✅ Respuestas enviadas correctamente.";
+ }catch(e){status.textContent="No se pudo guardar automáticamente. Puedes enviarlas por WhatsApp."}
+}
+function finish(){
+ payload={
+  fecha:new Date().toISOString(),
+  nombre:document.getElementById("name").value.trim(),
+  conocidos:checked("visited").join(", "),
+  por_conocer:checked("wish").join(", "),
+  plan:one("plan"),detalle:one("detail"),ritmo:one("pace"),
+  imprescindible:document.getElementById("mustHave").value.trim()
+ };
+ finalMessage=`🗺️✨ MI RUTA SECRETA ✨🗺️
+
+👤 ${payload.nombre}
+
+✅ Pueblos que ya conozco:
+• ${payload.conocidos}
+
+💖 Pueblos que me gustaría conocer contigo:
+• ${payload.por_conocer}
+
+🎒 Mi paseo favorito:
+• ${payload.plan}
+
+🌟 Detalle que me haría feliz:
+• ${payload.detalle}
+
+🧭 Mi ritmo ideal:
+• ${payload.ritmo}
+
+🔐 No puede faltar:
+• ${payload.imprescindible}
+
+Ahora te toca preparar la aventura 😉`;
+ document.getElementById("resultText").textContent=finalMessage;
+ document.getElementById("quiz").style.display="none";
+ document.getElementById("progress").style.width="100%";
+ document.getElementById("result").classList.add("show");
+ confetti();save();window.scrollTo({top:0,behavior:"smooth"});
+}
+document.getElementById("wa").onclick=()=>window.open("https://wa.me/?text="+encodeURIComponent(finalMessage),"_blank");
+document.getElementById("copy").onclick=async()=>{await navigator.clipboard.writeText(finalMessage);document.getElementById("copy").textContent="¡Copiado! ✅"};
+document.getElementById("share").onclick=async()=>navigator.share?navigator.share({title:"Mi ruta secreta",text:finalMessage}):navigator.clipboard.writeText(finalMessage);
+show(0);
+</script>
+</body>
+</html>
