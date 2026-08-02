@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Respuestas - Ruta Secreta</title>
+<style>
+body{margin:0;font-family:Inter,system-ui;background:linear-gradient(135deg,#f5f3ff,#fdf2f8);color:#302a3a;padding:24px}
+.wrap{max-width:1150px;margin:auto}.head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+h1{margin:0;background:linear-gradient(90deg,#7c3aed,#ec4899);color:transparent;background-clip:text}
+.card{background:#fff;border-radius:24px;padding:22px;box-shadow:0 18px 50px #6d28d91c;margin-top:20px;overflow:auto}
+input{padding:13px;border:2px solid #e9d5ff;border-radius:14px;font:inherit}button{padding:13px 18px;border:0;border-radius:14px;background:#7c3aed;color:#fff;font-weight:800;cursor:pointer}
+table{border-collapse:collapse;width:100%;min-width:950px}th,td{text-align:left;padding:12px;border-bottom:1px solid #eee;vertical-align:top}th{background:#faf5ff;position:sticky;top:0}
+.status{margin-top:15px;font-weight:750}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#fce7f3}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="head"><div><h1>🗺️ Respuestas del juego</h1><p>Panel privado para revisar las respuestas recibidas.</p></div>
+ <div><input id="key" type="password" placeholder="Clave de administrador"><button onclick="loadData()">Ver respuestas</button></div></div>
+ <div class="status" id="status">Ingresa tu clave para consultar.</div>
+ <div class="card"><table><thead><tr><th>Fecha</th><th>Nombre</th><th>Conocidos</th><th>Por conocer</th><th>Plan</th><th>Detalle</th><th>Ritmo</th><th>No puede faltar</th></tr></thead><tbody id="body"></tbody></table></div>
+</div>
+<script>
+const API_URL="PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT";
+function loadData(){
+ const key=document.getElementById("key").value.trim(),status=document.getElementById("status");
+ if(!key)return status.textContent="Escribe la clave de administrador.";
+ if(!API_URL.startsWith("https://"))return status.textContent="Primero debes configurar la URL del Apps Script.";
+ status.textContent="Consultando...";
+ const cb="cb_"+Date.now();
+ window[cb]=data=>{
+   delete window[cb];document.getElementById(cb)?.remove();
+   if(!data.ok)return status.textContent=data.error||"No autorizado.";
+   const rows=data.rows||[];status.textContent=`${rows.length} respuesta(s) recibida(s).`;
+   document.getElementById("body").innerHTML=rows.slice().reverse().map(r=>`<tr>
+    <td>${esc(r.fecha||"")}</td><td><span class="pill">${esc(r.nombre||"")}</span></td>
+    <td>${esc(r.conocidos||"")}</td><td>${esc(r.por_conocer||"")}</td><td>${esc(r.plan||"")}</td>
+    <td>${esc(r.detalle||"")}</td><td>${esc(r.ritmo||"")}</td><td>${esc(r.imprescindible||"")}</td></tr>`).join("");
+ };
+ const s=document.createElement("script");s.id=cb;s.src=`${API_URL}?action=list&key=${encodeURIComponent(key)}&callback=${cb}`;document.body.appendChild(s);
+ s.onerror=()=>status.textContent="No fue posible consultar la información.";
+}
+function esc(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+</script>
+</body>
+</html>
