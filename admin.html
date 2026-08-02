@@ -1,46 +1,409 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Respuestas - Ruta Secreta</title>
-<style>
-body{margin:0;font-family:Inter,system-ui;background:linear-gradient(135deg,#f5f3ff,#fdf2f8);color:#302a3a;padding:24px}
-.wrap{max-width:1150px;margin:auto}.head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-h1{margin:0;background:linear-gradient(90deg,#7c3aed,#ec4899);color:transparent;background-clip:text}
-.card{background:#fff;border-radius:24px;padding:22px;box-shadow:0 18px 50px #6d28d91c;margin-top:20px;overflow:auto}
-input{padding:13px;border:2px solid #e9d5ff;border-radius:14px;font:inherit}button{padding:13px 18px;border:0;border-radius:14px;background:#7c3aed;color:#fff;font-weight:800;cursor:pointer}
-table{border-collapse:collapse;width:100%;min-width:950px}th,td{text-align:left;padding:12px;border-bottom:1px solid #eee;vertical-align:top}th{background:#faf5ff;position:sticky;top:0}
-.status{margin-top:15px;font-weight:750}.pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#fce7f3}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Respuestas - Ruta Secreta</title>
+
+  <style>
+    :root {
+      --morado: #6d28d9;
+      --rosa: #ec4899;
+      --fondo1: #f5f3ff;
+      --fondo2: #fdf2f8;
+      --texto: #302a3a;
+      --suave: #746b7f;
+      --borde: #e9d5ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--texto);
+      background:
+        radial-gradient(circle at 10% 10%, #fde68a66 0 110px, transparent 112px),
+        radial-gradient(circle at 90% 15%, #f9a8d466 0 130px, transparent 132px),
+        linear-gradient(135deg, var(--fondo1), var(--fondo2));
+    }
+
+    .wrap {
+      width: min(1180px, 100%);
+      margin: auto;
+    }
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 18px 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1;
+      color: transparent;
+      background: linear-gradient(90deg, var(--morado), var(--rosa));
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--suave);
+    }
+
+    .login {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: #ffffffd9;
+      padding: 12px;
+      border: 1px solid #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px #6d28d91b;
+      backdrop-filter: blur(8px);
+    }
+
+    input {
+      min-width: 240px;
+      padding: 13px 14px;
+      font: inherit;
+      border: 2px solid var(--borde);
+      border-radius: 14px;
+      outline: none;
+      background: #fff;
+    }
+
+    input:focus {
+      border-color: var(--morado);
+      box-shadow: 0 0 0 4px #ede9fe;
+    }
+
+    button {
+      padding: 13px 18px;
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      cursor: pointer;
+      border: 0;
+      border-radius: 14px;
+      background: linear-gradient(90deg, var(--morado), var(--rosa));
+      box-shadow: 0 8px 20px #6d28d92c;
+      transition: .2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .status {
+      margin: 8px 0 16px;
+      font-weight: 800;
+      color: #5b4d66;
+    }
+
+    .status.ok {
+      color: #15803d;
+    }
+
+    .status.error {
+      color: #be123c;
+    }
+
+    .card {
+      overflow: auto;
+      background: #ffffffee;
+      border: 1px solid #fff;
+      border-radius: 24px;
+      box-shadow: 0 18px 50px #6d28d91c;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1050px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 14px 13px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      color: #5b21b6;
+      background: #faf5ff;
+    }
+
+    tbody tr:hover {
+      background: #fff7fb;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      font-weight: 800;
+      background: #fce7f3;
+      border-radius: 999px;
+    }
+
+    .empty {
+      padding: 36px;
+      text-align: center;
+      color: var(--suave);
+    }
+
+    .counter {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 4px 9px;
+      color: #fff;
+      background: var(--morado);
+      border-radius: 999px;
+      font-size: .85rem;
+    }
+
+    @media (max-width: 650px) {
+      body {
+        padding: 14px;
+      }
+
+      .login {
+        width: 100%;
+      }
+
+      .login input,
+      .login button {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
- <div class="head"><div><h1>🗺️ Respuestas del juego</h1><p>Panel privado para revisar las respuestas recibidas.</p></div>
- <div><input id="key" type="password" placeholder="Clave de administrador"><button onclick="loadData()">Ver respuestas</button></div></div>
- <div class="status" id="status">Ingresa tu clave para consultar.</div>
- <div class="card"><table><thead><tr><th>Fecha</th><th>Nombre</th><th>Conocidos</th><th>Por conocer</th><th>Plan</th><th>Detalle</th><th>Ritmo</th><th>No puede faltar</th></tr></thead><tbody id="body"></tbody></table></div>
-</div>
-<script>
-const API_URL="PEGA_AQUI_LA_URL_DE_TU_APPS_SCRIPT";
-function loadData(){
- const key=document.getElementById("key").value.trim(),status=document.getElementById("status");
- if(!key)return status.textContent="Escribe la clave de administrador.";
- if(!API_URL.startsWith("https://"))return status.textContent="Primero debes configurar la URL del Apps Script.";
- status.textContent="Consultando...";
- const cb="cb_"+Date.now();
- window[cb]=data=>{
-   delete window[cb];document.getElementById(cb)?.remove();
-   if(!data.ok)return status.textContent=data.error||"No autorizado.";
-   const rows=data.rows||[];status.textContent=`${rows.length} respuesta(s) recibida(s).`;
-   document.getElementById("body").innerHTML=rows.slice().reverse().map(r=>`<tr>
-    <td>${esc(r.fecha||"")}</td><td><span class="pill">${esc(r.nombre||"")}</span></td>
-    <td>${esc(r.conocidos||"")}</td><td>${esc(r.por_conocer||"")}</td><td>${esc(r.plan||"")}</td>
-    <td>${esc(r.detalle||"")}</td><td>${esc(r.ritmo||"")}</td><td>${esc(r.imprescindible||"")}</td></tr>`).join("");
- };
- const s=document.createElement("script");s.id=cb;s.src=`${API_URL}?action=list&key=${encodeURIComponent(key)}&callback=${cb}`;document.body.appendChild(s);
- s.onerror=()=>status.textContent="No fue posible consultar la información.";
-}
-function esc(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-</script>
+  <main class="wrap">
+
+    <section class="head">
+      <div>
+        <h1>🗺️ Respuestas del juego</h1>
+        <p class="subtitle">Panel privado para revisar las respuestas de Ruta Secreta.</p>
+      </div>
+
+      <div class="login">
+        <input
+          id="key"
+          type="password"
+          placeholder="Clave de administrador"
+          autocomplete="current-password"
+        >
+
+        <button id="loadButton" type="button">
+          Ver respuestas
+        </button>
+      </div>
+    </section>
+
+    <div class="status" id="status">
+      Ingresa tu clave de administrador para consultar.
+    </div>
+
+    <section class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nombre</th>
+            <th>Pueblos conocidos</th>
+            <th>Pueblos por conocer</th>
+            <th>Plan favorito</th>
+            <th>Detalle especial</th>
+            <th>Ritmo de viaje</th>
+            <th>No puede faltar</th>
+          </tr>
+        </thead>
+
+        <tbody id="body">
+          <tr>
+            <td colspan="8" class="empty">
+              Todavía no se han consultado las respuestas.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwAGVCpnvwoXeFfWj5r_RBauReR0Tk9Uf9C6B94ydKpGqRnEvHNDcjgzZeQxyROOrCTPQ/exec";
+
+    const keyInput = document.getElementById("key");
+    const statusElement = document.getElementById("status");
+    const bodyElement = document.getElementById("body");
+    const loadButton = document.getElementById("loadButton");
+
+    loadButton.addEventListener("click", loadData);
+
+    keyInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        loadData();
+      }
+    });
+
+    function setStatus(message, type = "") {
+      statusElement.textContent = message;
+      statusElement.className = "status";
+
+      if (type) {
+        statusElement.classList.add(type);
+      }
+    }
+
+    function setTableMessage(message) {
+      bodyElement.innerHTML = `
+        <tr>
+          <td colspan="8" class="empty">${esc(message)}</td>
+        </tr>
+      `;
+    }
+
+    function loadData() {
+      const key = keyInput.value.trim();
+
+      if (!key) {
+        setStatus("Escribe la clave de administrador.", "error");
+        keyInput.focus();
+        return;
+      }
+
+      if (!API_URL.startsWith("https://script.google.com/")) {
+        setStatus("La URL del Apps Script no está configurada correctamente.", "error");
+        return;
+      }
+
+      setStatus("Consultando respuestas...");
+      setTableMessage("Cargando información...");
+      loadButton.disabled = true;
+
+      const callbackName = "rutaSecretaCallback_" + Date.now();
+
+      window[callbackName] = function (data) {
+        cleanupJsonp(callbackName);
+
+        if (!data || !data.ok) {
+          setStatus(
+            data && data.error ? data.error : "No fue posible consultar las respuestas.",
+            "error"
+          );
+          setTableMessage("No se pudo cargar la información.");
+          loadButton.disabled = false;
+          return;
+        }
+
+        const rows = Array.isArray(data.rows) ? data.rows : [];
+
+        setStatus(
+          `${rows.length} respuesta(s) recibida(s).`,
+          "ok"
+        );
+
+        if (rows.length === 0) {
+          setTableMessage("Todavía no se han recibido respuestas.");
+          loadButton.disabled = false;
+          return;
+        }
+
+        bodyElement.innerHTML = rows
+          .slice()
+          .reverse()
+          .map(function (respuesta) {
+            return `
+              <tr>
+                <td>${esc(respuesta.fecha || "")}</td>
+                <td><span class="pill">${esc(respuesta.nombre || "")}</span></td>
+                <td>${esc(respuesta.conocidos || "")}</td>
+                <td>${esc(respuesta.por_conocer || "")}</td>
+                <td>${esc(respuesta.plan || "")}</td>
+                <td>${esc(respuesta.detalle || "")}</td>
+                <td>${esc(respuesta.ritmo || "")}</td>
+                <td>${esc(respuesta.imprescindible || "")}</td>
+              </tr>
+            `;
+          })
+          .join("");
+
+        loadButton.disabled = false;
+      };
+
+      const script = document.createElement("script");
+      script.id = callbackName;
+
+      const params = new URLSearchParams({
+        action: "list",
+        key: key,
+        callback: callbackName,
+        timestamp: Date.now().toString()
+      });
+
+      script.src = `${API_URL}?${params.toString()}`;
+
+      script.onerror = function () {
+        cleanupJsonp(callbackName);
+        setStatus(
+          "No fue posible conectarse con Google Apps Script. Revisa la implementación y sus permisos.",
+          "error"
+        );
+        setTableMessage("No se pudo establecer conexión con el servidor.");
+        loadButton.disabled = false;
+      };
+
+      document.body.appendChild(script);
+    }
+
+    function cleanupJsonp(callbackName) {
+      const script = document.getElementById(callbackName);
+
+      if (script) {
+        script.remove();
+      }
+
+      if (window[callbackName]) {
+        delete window[callbackName];
+      }
+    }
+
+    function esc(value) {
+      return String(value).replace(
+        /[&<>"']/g,
+        function (character) {
+          const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+          };
+
+          return entities[character];
+        }
+      );
+    }
+  </script>
 </body>
 </html>
